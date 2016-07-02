@@ -33,4 +33,4 @@ It may or may not work with (MonoGame)[http://www.monogame.net/].
 ## License
 
 The work here is under the [MIT License](LICENSE). The original work and the
-converted assets remain under [Microsoft Permissive License Ms-PL)[original/Microsoft Permissive License.rtf].
+converted assets remain under [Microsoft Permissive License Ms-PL](original/LICENSE.md).
