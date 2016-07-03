@@ -1,0 +1,46 @@
+[gd_resource type="SampleLibrary" load_steps=21 format=1]
+
+[ext_resource path="res://sounds/Continue.wav" type="Sample" id=1]
+[ext_resource path="res://sounds/Death.wav" type="Sample" id=2]
+[ext_resource path="res://sounds/FireballCreate.wav" type="Sample" id=3]
+[ext_resource path="res://sounds/FireballHit.wav" type="Sample" id=4]
+[ext_resource path="res://sounds/FireballTravel.wav" type="Sample" id=5]
+[ext_resource path="res://sounds/HealCreate.wav" type="Sample" id=6]
+[ext_resource path="res://sounds/HealImpact.wav" type="Sample" id=7]
+[ext_resource path="res://sounds/HealPotion.wav" type="Sample" id=8]
+[ext_resource path="res://sounds/LevelUp.wav" type="Sample" id=9]
+[ext_resource path="res://sounds/MenuMove.wav" type="Sample" id=10]
+[ext_resource path="res://sounds/Money.wav" type="Sample" id=11]
+[ext_resource path="res://sounds/QuestComplete.wav" type="Sample" id=12]
+[ext_resource path="res://sounds/SpellBlock.wav" type="Sample" id=13]
+[ext_resource path="res://sounds/SpellCreate.wav" type="Sample" id=14]
+[ext_resource path="res://sounds/StaffBlock.wav" type="Sample" id=15]
+[ext_resource path="res://sounds/StaffHit.wav" type="Sample" id=16]
+[ext_resource path="res://sounds/StaffSwing.wav" type="Sample" id=17]
+[ext_resource path="res://sounds/SwordBlock.wav" type="Sample" id=18]
+[ext_resource path="res://sounds/SwordHit.wav" type="Sample" id=19]
+[ext_resource path="res://sounds/SwordSwing.wav" type="Sample" id=20]
+
+[resource]
+
+samples/Continue = { "db":0.0, "pitch":1.0, "sample":ExtResource( 1 ) }
+samples/Death = { "db":0.0, "pitch":1.0, "sample":ExtResource( 2 ) }
+samples/FireballCreate = { "db":0.0, "pitch":1.0, "sample":ExtResource( 3 ) }
+samples/FireballHit = { "db":0.0, "pitch":1.0, "sample":ExtResource( 4 ) }
+samples/FireballTravel = { "db":0.0, "pitch":1.0, "sample":ExtResource( 5 ) }
+samples/HealCreate = { "db":0.0, "pitch":1.0, "sample":ExtResource( 6 ) }
+samples/HealImpact = { "db":0.0, "pitch":1.0, "sample":ExtResource( 7 ) }
+samples/HealPotion = { "db":0.0, "pitch":1.0, "sample":ExtResource( 8 ) }
+samples/LevelUp = { "db":0.0, "pitch":1.0, "sample":ExtResource( 9 ) }
+samples/MenuMove = { "db":0.0, "pitch":1.0, "sample":ExtResource( 10 ) }
+samples/Money = { "db":0.0, "pitch":1.0, "sample":ExtResource( 11 ) }
+samples/QuestComplete = { "db":0.0, "pitch":1.0, "sample":ExtResource( 12 ) }
+samples/SpellBlock = { "db":0.0, "pitch":1.0, "sample":ExtResource( 13 ) }
+samples/SpellCreate = { "db":0.0, "pitch":1.0, "sample":ExtResource( 14 ) }
+samples/StaffBlock = { "db":0.0, "pitch":1.0, "sample":ExtResource( 15 ) }
+samples/StaffHit = { "db":0.0, "pitch":1.0, "sample":ExtResource( 16 ) }
+samples/StaffSwing = { "db":0.0, "pitch":1.0, "sample":ExtResource( 17 ) }
+samples/SwordBlock = { "db":0.0, "pitch":1.0, "sample":ExtResource( 18 ) }
+samples/SwordHit = { "db":0.0, "pitch":1.0, "sample":ExtResource( 19 ) }
+samples/SwordSwing = { "db":0.0, "pitch":1.0, "sample":ExtResource( 20 ) }
+
