@@ -35,6 +35,10 @@ func _ready():
 	focus_color = get("custom_colors/font_color_hover")
 	connect("focus_enter", self, "_on_focus_enter")
 	connect("focus_exit", self, "_on_focus_exit")
+	set_process(true)
+
+func _process(delta):
+	set_margin(MARGIN_LEFT, position_offset)
 
 func _on_focus_enter():
 	set("custom_colors/font_color", focus_color)

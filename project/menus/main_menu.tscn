@@ -13,7 +13,7 @@
 [ext_resource path="res://menus/MainMenuPlank02.png" type="Texture" id=11]
 [ext_resource path="res://menus/MainMenuPlank.png" type="Texture" id=12]
 
-[sub_resource type="StyleBoxTexture" id=7]
+[sub_resource type="StyleBoxTexture" id=1]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -31,21 +31,21 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxEmpty" id=8]
+[sub_resource type="StyleBoxEmpty" id=2]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
 
-[sub_resource type="StyleBoxEmpty" id=9]
+[sub_resource type="StyleBoxEmpty" id=3]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
 content_margin/top = -1.0
 content_margin/bottom = -1.0
 
-[sub_resource type="StyleBoxTexture" id=6]
+[sub_resource type="StyleBoxTexture" id=4]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -62,7 +62,7 @@ expand_margin/top = 0.0
 expand_margin/bottom = 0.0
 draw_center = true
 
-[sub_resource type="StyleBoxTexture" id=10]
+[sub_resource type="StyleBoxTexture" id=5]
 
 content_margin/left = -1.0
 content_margin/right = -1.0
@@ -172,7 +172,7 @@ max_lines_visible = -1
 anchor/top = 1
 anchor/bottom = 1
 rect/min_size = Vector2( 307, 490 )
-focus/ignore_mouse = false
+focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 0
 size_flags/vertical = 2
@@ -187,7 +187,7 @@ alignment = 2
 
 rect/min_size = Vector2( 307, 90 )
 focus_neighbour/bottom = NodePath("../SaveGameButton")
-focus/ignore_mouse = false
+focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 0
 size_flags/vertical = 2
@@ -195,11 +195,11 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 307.0
 margin/bottom = 90.0
-custom_styles/hover = SubResource( 7 )
-custom_styles/pressed = SubResource( 7 )
-custom_styles/focus = SubResource( 8 )
-custom_styles/disabled = SubResource( 9 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 1 )
 custom_fonts/font = ExtResource( 9 )
 custom_colors/font_color = Color( 0.231373, 0.0705882, 0.0235294, 1 )
 custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
@@ -212,14 +212,14 @@ text = "New Game"
 flat = false
 script/script = ExtResource( 10 )
 description = "Start a New Game"
-position_offset = 0
+position_offset = 15
 
 [node name="SaveGameButton" type="Button" parent="Buttons"]
 
 rect/min_size = Vector2( 307, 90 )
 focus_neighbour/top = NodePath("../NewGameButton")
 focus_neighbour/bottom = NodePath("../LoadGameButton")
-focus/ignore_mouse = false
+focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 0
 size_flags/vertical = 2
@@ -227,11 +227,11 @@ margin/left = 0.0
 margin/top = 80.0
 margin/right = 307.0
 margin/bottom = 170.0
-custom_styles/hover = SubResource( 6 )
-custom_styles/pressed = SubResource( 6 )
-custom_styles/focus = SubResource( 8 )
-custom_styles/disabled = SubResource( 9 )
-custom_styles/normal = SubResource( 6 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
 custom_fonts/font = ExtResource( 9 )
 custom_colors/font_color = Color( 0.231373, 0.0705882, 0.0235294, 1 )
 custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
@@ -244,14 +244,14 @@ text = "Save Game"
 flat = false
 script/script = ExtResource( 10 )
 description = "Save the Game"
-position_offset = 0
+position_offset = 30
 
 [node name="LoadGameButton" type="Button" parent="Buttons"]
 
 rect/min_size = Vector2( 307, 90 )
 focus_neighbour/top = NodePath("../SaveGameButton")
 focus_neighbour/bottom = NodePath("../ControlsButton")
-focus/ignore_mouse = false
+focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 0
 size_flags/vertical = 2
@@ -259,11 +259,11 @@ margin/left = 0.0
 margin/top = 160.0
 margin/right = 307.0
 margin/bottom = 250.0
-custom_styles/hover = SubResource( 10 )
-custom_styles/pressed = SubResource( 10 )
-custom_styles/focus = SubResource( 8 )
-custom_styles/disabled = SubResource( 9 )
-custom_styles/normal = SubResource( 10 )
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 5 )
 custom_fonts/font = ExtResource( 9 )
 custom_colors/font_color = Color( 0.231373, 0.0705882, 0.0235294, 1 )
 custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
@@ -283,7 +283,7 @@ position_offset = 0
 rect/min_size = Vector2( 307, 90 )
 focus_neighbour/top = NodePath("../LoadGameButton")
 focus_neighbour/bottom = NodePath("../HelpButton")
-focus/ignore_mouse = false
+focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 0
 size_flags/vertical = 2
@@ -291,11 +291,11 @@ margin/left = 0.0
 margin/top = 240.0
 margin/right = 307.0
 margin/bottom = 330.0
-custom_styles/hover = SubResource( 6 )
-custom_styles/pressed = SubResource( 6 )
-custom_styles/focus = SubResource( 8 )
-custom_styles/disabled = SubResource( 9 )
-custom_styles/normal = SubResource( 6 )
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
 custom_fonts/font = ExtResource( 9 )
 custom_colors/font_color = Color( 0.231373, 0.0705882, 0.0235294, 1 )
 custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
@@ -308,14 +308,14 @@ text = "Controls"
 flat = false
 script/script = ExtResource( 10 )
 description = "View Game Controls"
-position_offset = 0
+position_offset = 20
 
 [node name="HelpButton" type="Button" parent="Buttons"]
 
 rect/min_size = Vector2( 307, 90 )
 focus_neighbour/top = NodePath("../ControlsButton")
 focus_neighbour/bottom = NodePath("../ExitButton")
-focus/ignore_mouse = false
+focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 0
 size_flags/vertical = 2
@@ -323,11 +323,11 @@ margin/left = 0.0
 margin/top = 320.0
 margin/right = 307.0
 margin/bottom = 410.0
-custom_styles/hover = SubResource( 7 )
-custom_styles/pressed = SubResource( 7 )
-custom_styles/focus = SubResource( 8 )
-custom_styles/disabled = SubResource( 9 )
-custom_styles/normal = SubResource( 7 )
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 1 )
 custom_fonts/font = ExtResource( 9 )
 custom_colors/font_color = Color( 0.231373, 0.0705882, 0.0235294, 1 )
 custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
@@ -346,7 +346,7 @@ position_offset = 0
 
 rect/min_size = Vector2( 307, 90 )
 focus_neighbour/top = NodePath("../HelpButton")
-focus/ignore_mouse = false
+focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 0
 size_flags/vertical = 2
@@ -354,11 +354,11 @@ margin/left = 0.0
 margin/top = 400.0
 margin/right = 307.0
 margin/bottom = 490.0
-custom_styles/hover = SubResource( 10 )
-custom_styles/pressed = SubResource( 10 )
-custom_styles/focus = SubResource( 8 )
-custom_styles/disabled = SubResource( 8 )
-custom_styles/normal = SubResource( 10 )
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 5 )
 custom_fonts/font = ExtResource( 9 )
 custom_colors/font_color = Color( 0.231373, 0.0705882, 0.0235294, 1 )
 custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
@@ -371,7 +371,7 @@ text = "Exit"
 flat = false
 script/script = ExtResource( 10 )
 description = "Quit the Game"
-position_offset = 0
+position_offset = 20
 
 [connection signal="focused" from="Buttons/NewGameButton" to="." method="_on_button_focused"]
 

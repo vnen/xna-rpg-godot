@@ -26,5 +26,9 @@ func _ready():
 	get_node("Buttons/NewGameButton").call_deferred("grab_focus")
 	pass
 
-func _on_button_focused( description ):
+func _on_button_focused(description):
 	get_node("DescriptionText").set_text(description)
+
+
+func _on_NewGameButton_draw():
+	pass # replace with function body
