@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=1]
+[gd_scene load_steps=19 format=1]
 
 [ext_resource path="res://menus/MainMenu.jpg" type="Texture" id=1]
 [ext_resource path="res://menus/main_menu.gd" type="Script" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://menus/menu_button.gd" type="Script" id=10]
 [ext_resource path="res://menus/MainMenuPlank02.png" type="Texture" id=11]
 [ext_resource path="res://menus/MainMenuPlank.png" type="Texture" id=12]
+[ext_resource path="res://menus/message_box.tscn" type="PackedScene" id=13]
 
 [sub_resource type="StyleBoxTexture" id=1]
 
@@ -169,6 +170,7 @@ max_lines_visible = -1
 
 [node name="Buttons" type="VBoxContainer" parent="."]
 
+editor/display_folded = true
 anchor/top = 1
 anchor/bottom = 1
 rect/min_size = Vector2( 307, 490 )
@@ -206,7 +208,7 @@ custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
 custom_colors/font_color_pressed = Color( 0.972549, 0.854902, 0.498039, 1 )
 toggle_mode = false
 click_on_press = true
-enabled_focus_mode = 2
+enabled_focus_mode = 1
 shortcut = null
 text = "New Game"
 flat = false
@@ -238,7 +240,7 @@ custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
 custom_colors/font_color_pressed = Color( 0.972549, 0.854902, 0.498039, 1 )
 toggle_mode = false
 click_on_press = true
-enabled_focus_mode = 2
+enabled_focus_mode = 1
 shortcut = null
 text = "Save Game"
 flat = false
@@ -270,7 +272,7 @@ custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
 custom_colors/font_color_pressed = Color( 0.972549, 0.854902, 0.498039, 1 )
 toggle_mode = false
 click_on_press = true
-enabled_focus_mode = 2
+enabled_focus_mode = 1
 shortcut = null
 text = "Load Game"
 flat = false
@@ -302,7 +304,7 @@ custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
 custom_colors/font_color_pressed = Color( 0.972549, 0.854902, 0.498039, 1 )
 toggle_mode = false
 click_on_press = true
-enabled_focus_mode = 2
+enabled_focus_mode = 1
 shortcut = null
 text = "Controls"
 flat = false
@@ -334,7 +336,7 @@ custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
 custom_colors/font_color_pressed = Color( 0.972549, 0.854902, 0.498039, 1 )
 toggle_mode = false
 click_on_press = true
-enabled_focus_mode = 2
+enabled_focus_mode = 1
 shortcut = null
 text = "Help"
 flat = false
@@ -365,13 +367,17 @@ custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
 custom_colors/font_color_pressed = Color( 0.972549, 0.854902, 0.498039, 1 )
 toggle_mode = false
 click_on_press = true
-enabled_focus_mode = 2
+enabled_focus_mode = 1
 shortcut = null
 text = "Exit"
 flat = false
 script/script = ExtResource( 10 )
 description = "Quit the Game"
 position_offset = 20
+
+[node name="MessageBox" parent="." instance=ExtResource( 13 )]
+
+visibility/visible = false
 
 [connection signal="focused" from="Buttons/NewGameButton" to="." method="_on_button_focused"]
 
@@ -384,5 +390,7 @@ position_offset = 20
 [connection signal="focused" from="Buttons/HelpButton" to="." method="_on_button_focused"]
 
 [connection signal="focused" from="Buttons/ExitButton" to="." method="_on_button_focused"]
+
+[connection signal="pressed" from="Buttons/ExitButton" to="." method="_on_ExitButton_pressed"]
 
 

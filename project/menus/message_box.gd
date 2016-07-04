@@ -20,15 +20,7 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-extends TextureFrame
+extends PopupPanel
 
 func _ready():
-	get_node("Buttons/NewGameButton").call_deferred("grab_focus")
-
-func _on_button_focused(description):
-	get_node("DescriptionText").set_text(description)
-
-func _on_ExitButton_pressed():
-	var message_box = get_node("MessageBox")
-	message_box.popup()
-	message_box.grab_focus()
+	set_focus_mode(FOCUS_ALL)
