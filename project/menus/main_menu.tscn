@@ -170,7 +170,6 @@ max_lines_visible = -1
 
 [node name="Buttons" type="VBoxContainer" parent="."]
 
-editor/display_folded = true
 anchor/top = 1
 anchor/bottom = 1
 rect/min_size = Vector2( 307, 490 )
@@ -194,9 +193,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 0
 size_flags/vertical = 2
 margin/left = 0.0
-margin/top = 0.0
+margin/top = 80.0
 margin/right = 307.0
-margin/bottom = 90.0
+margin/bottom = 170.0
 custom_styles/hover = SubResource( 1 )
 custom_styles/pressed = SubResource( 1 )
 custom_styles/focus = SubResource( 2 )
@@ -218,6 +217,7 @@ position_offset = 15
 
 [node name="SaveGameButton" type="Button" parent="Buttons"]
 
+visibility/visible = false
 rect/min_size = Vector2( 307, 90 )
 focus_neighbour/top = NodePath("../NewGameButton")
 focus_neighbour/bottom = NodePath("../LoadGameButton")
