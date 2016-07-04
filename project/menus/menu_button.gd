@@ -46,3 +46,10 @@ func _on_focus_enter():
 
 func _on_focus_exit():
 	set("custom_colors/font_color", default_color)
+
+func _notification(what):
+	if what == MainLoop.NOTIFICATION_WM_FOCUS_OUT:
+		_on_focus_exit()
+	elif what == MainLoop.NOTIFICATION_WM_FOCUS_IN:
+		if has_focus():
+			_on_focus_enter()
