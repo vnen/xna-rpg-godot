@@ -24,6 +24,13 @@ extends TextureFrame
 
 func _ready():
 	get_node("Buttons/NewGameButton").call_deferred("grab_focus")
+	set_process_unhandled_input(true)
+
+func _unhandled_input(event):
+	if event.is_pressed() and not event.is_echo() and event.is_action("ui_cancel"):
+		accept_event()
+		print("evet")
+		_on_ExitButton_pressed()
 
 func _on_button_focused(description):
 	get_node("DescriptionText").set_text(description)
@@ -32,3 +39,9 @@ func _on_ExitButton_pressed():
 	var message_box = get_node("MessageBox")
 	message_box.popup()
 	message_box.grab_focus()
+
+func _on_MessageBox_confirmed():
+	get_tree().quit()
+
+func _on_MessageBox_canceled():
+	get_node("MessageBox").hide()

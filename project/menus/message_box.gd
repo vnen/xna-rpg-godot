@@ -22,5 +22,17 @@
 
 extends PopupPanel
 
+signal confirmed
+signal canceled
+
 func _ready():
 	set_focus_mode(FOCUS_ALL)
+
+func _input_event(event):
+	if event.is_pressed() and not event.is_echo():
+		if event.is_action("ui_cancel"):
+			accept_event()
+			emit_signal("canceled")
+		elif event.is_action("ui_accept"):
+			accept_event()
+			emit_signal("confirmed")

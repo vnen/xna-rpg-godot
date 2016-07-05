@@ -423,4 +423,8 @@ visibility/visible = false
 
 [connection signal="pressed" from="Buttons/ExitButton" to="." method="_on_ExitButton_pressed"]
 
+[connection signal="canceled" from="MessageBox" to="." method="_on_MessageBox_canceled"]
+
+[connection signal="confirmed" from="MessageBox" to="." method="_on_MessageBox_confirmed"]
+
 
