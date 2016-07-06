@@ -1,0 +1,77 @@
+[gd_scene load_steps=6 format=1]
+
+[ext_resource path="res://menus/content_screen.tscn" type="PackedScene" id=1]
+[ext_resource path="res://menus/help_screen.gd" type="Script" id=2]
+[ext_resource path="res://menus/ScrollUp.png" type="Texture" id=3]
+[ext_resource path="res://menus/ScrollDown.png" type="Texture" id=4]
+[ext_resource path="res://fonts/DescriptionFont.fnt" type="BitmapFont" id=5]
+
+[node name="HelpScreen" instance=ExtResource( 1 )]
+
+script/script = ExtResource( 2 )
+
+[node name="TitleText" parent="TitlePlank"]
+
+text = "Help"
+
+[node name="BackButton" parent="."]
+
+editor/display_folded = true
+
+[node name="DeleteButton" parent="."]
+
+editor/display_folded = true
+visibility/visible = false
+
+[node name="SelectButton" parent="."]
+
+editor/display_folded = true
+visibility/visible = false
+
+[node name="ScrollUp" type="TextureFrame" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 980.0
+margin/top = 200.0
+margin/right = 1013.0
+margin/bottom = 236.0
+texture = ExtResource( 3 )
+stretch_mode = 0
+
+[node name="ScrollDown" type="TextureFrame" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 980.0
+margin/top = 460.0
+margin/right = 1020.0
+margin/bottom = 500.0
+texture = ExtResource( 4 )
+stretch_mode = 0
+
+[node name="HelpText" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 360.0
+margin/top = 200.0
+margin/right = 950.0
+margin/bottom = 498.0
+custom_fonts/font = ExtResource( 5 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = -1
+text = "Welcome, hero!   You must meet new comrades, earn necessary experience, gold, spells, and the equipment required to challenge and defeat the evil Tamar, who resides in his lair, known as the Unspoken Tower.   Be wary!   The Unspoken Tower is filled with monstrosities that only the most hardened of heroes could possibly face.   Good luck!"
+autowrap = true
+clip_text = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = 7
+
+

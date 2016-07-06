@@ -22,32 +22,36 @@
 
 extends TextureFrame
 
+# member variables here, example:
+# var a=2
+# var b="textvar"
+
 func _ready():
-	get_node("Buttons/NewGameButton").call_deferred("grab_focus")
-	set_process_unhandled_input(true)
+	set_focus_mode(FOCUS_ALL)
+	grab_focus()
 
-func _unhandled_input(event):
-	if event.is_pressed() and not event.is_echo() and event.is_action("ui_cancel"):
-		accept_event()
-		print("evet")
-		_on_ExitButton_pressed()
+func _input_event(event):
+	if event.is_pressed() and not event.is_echo():
+		if event.is_action("ui_down"):
+			accept_event()
+			scroll_text(1)
+		elif event.is_action("ui_up"):
+			accept_event()
+			scroll_text(-1)
+		elif event.is_action("ui_cancel"):
+			accept_event()
+			release_focus()
+			queue_free()
 
-func _on_button_focused(description):
-	get_node("DescriptionText").set_text(description)
 
-func _on_ExitButton_pressed():
-	var message_box = get_node("MessageBox")
-	message_box.popup()
-	message_box.grab_focus()
+func scroll_text(amount):
+	var text = get_node("HelpText")
+	var lines = text.get_line_count()
+	var max_lines = text.get_max_lines_visible()
 
-func _on_MessageBox_confirmed():
-	get_tree().quit()
-
-func _on_HelpButton_pressed():
-	var help_screen = load("res://menus/help_screen.tscn").instance()
-	add_child(help_screen)
-	help_screen.connect("exit_tree", get_node("Buttons/HelpButton"), "grab_focus")
-
-func _on_MessageBox_canceled():
-	get_node("MessageBox").hide()
-
+	if lines <= max_lines:
+		# No need to scroll if all lines are visible at once
+		text.set_lines_skipped(0)
+	else:
+		# Scroll by amount but clamp it to valid values
+		text.set_lines_skipped(clamp(text.get_lines_skipped() + amount, 0, lines - max_lines))
