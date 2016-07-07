@@ -35,19 +35,27 @@ func _unhandled_input(event):
 func _on_button_focused(description):
 	get_node("DescriptionText").set_text(description)
 
-func _on_ExitButton_pressed():
-	var message_box = get_node("MessageBox")
-	message_box.popup()
-	message_box.grab_focus()
+# Button routines
 
-func _on_MessageBox_confirmed():
-	get_tree().quit()
+func _on_ControlsButton_pressed():
+	var controls_screen = load("res://menus/controls_screen.tscn").instance()
+	add_child(controls_screen)
+	controls_screen.connect("exit_tree", get_node("Buttons/ControlsButton"), "grab_focus")
 
 func _on_HelpButton_pressed():
 	var help_screen = load("res://menus/help_screen.tscn").instance()
 	add_child(help_screen)
 	help_screen.connect("exit_tree", get_node("Buttons/HelpButton"), "grab_focus")
 
+func _on_ExitButton_pressed():
+	var message_box = get_node("MessageBox")
+	message_box.popup()
+	message_box.grab_focus()
+
+# Message Box
+
 func _on_MessageBox_canceled():
 	get_node("MessageBox").hide()
 
+func _on_MessageBox_confirmed():
+	get_tree().quit()

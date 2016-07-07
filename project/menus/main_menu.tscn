@@ -417,6 +417,8 @@ visibility/visible = false
 
 [connection signal="focused" from="Buttons/ControlsButton" to="." method="_on_button_focused"]
 
+[connection signal="pressed" from="Buttons/ControlsButton" to="." method="_on_ControlsButton_pressed"]
+
 [connection signal="focused" from="Buttons/HelpButton" to="." method="_on_button_focused"]
 
 [connection signal="pressed" from="Buttons/HelpButton" to="." method="_on_HelpButton_pressed"]
