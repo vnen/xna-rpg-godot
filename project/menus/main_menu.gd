@@ -37,6 +37,11 @@ func _on_button_focused(description):
 
 # Button routines
 
+func _on_NewGameButton_pressed():
+	var loading_screen = load("res://menus/loading_screen.tscn").instance()
+	add_child(loading_screen)
+	loading_screen.connect("exit_tree", get_node("Buttons/NewGameButton"), "grab_focus")
+
 func _on_SaveGameButton_pressed():
 	var save_screen = load("res://menus/save_load_screen.tscn").instance()
 	add_child(save_screen)
@@ -70,4 +75,3 @@ func _on_MessageBox_canceled():
 
 func _on_MessageBox_confirmed():
 	get_tree().quit()
-
