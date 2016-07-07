@@ -413,7 +413,11 @@ visibility/visible = false
 
 [connection signal="focused" from="Buttons/SaveGameButton" to="." method="_on_button_focused"]
 
+[connection signal="pressed" from="Buttons/SaveGameButton" to="." method="_on_SaveGameButton_pressed"]
+
 [connection signal="focused" from="Buttons/LoadGameButton" to="." method="_on_button_focused"]
+
+[connection signal="pressed" from="Buttons/LoadGameButton" to="." method="_on_LoadGameButton_pressed"]
 
 [connection signal="focused" from="Buttons/ControlsButton" to="." method="_on_button_focused"]
 

@@ -37,6 +37,17 @@ func _on_button_focused(description):
 
 # Button routines
 
+func _on_SaveGameButton_pressed():
+	var save_screen = load("res://menus/save_load_screen.tscn").instance()
+	add_child(save_screen)
+	save_screen.get_node("TitlePlank/TitleText").set_text("Save")
+	save_screen.connect("exit_tree", get_node("Buttons/SaveGameButton"), "grab_focus")
+
+func _on_LoadGameButton_pressed():
+	var load_screen = load("res://menus/save_load_screen.tscn").instance()
+	add_child(load_screen)
+	load_screen.connect("exit_tree", get_node("Buttons/LoadGameButton"), "grab_focus")
+
 func _on_ControlsButton_pressed():
 	var controls_screen = load("res://menus/controls_screen.tscn").instance()
 	add_child(controls_screen)
@@ -59,3 +70,4 @@ func _on_MessageBox_canceled():
 
 func _on_MessageBox_confirmed():
 	get_tree().quit()
+
