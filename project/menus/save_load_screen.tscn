@@ -1,0 +1,50 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://menus/content_screen.tscn" type="PackedScene" id=1]
+[ext_resource path="res://menus/save_load_screen.gd" type="Script" id=2]
+[ext_resource path="res://fonts/GearInfoFont.fnt" type="BitmapFont" id=3]
+
+[node name="SaveLoadScreen" instance=ExtResource( 1 )]
+
+script/script = ExtResource( 2 )
+
+[node name="TitlePlank" parent="."]
+
+editor/display_folded = true
+
+[node name="TitleText" parent="TitlePlank"]
+
+text = "Load"
+
+[node name="BackButton" parent="."]
+
+editor/display_folded = true
+
+[node name="DeleteButton" parent="."]
+
+editor/display_folded = true
+visibility/visible = false
+
+[node name="SelectButton" parent="."]
+
+editor/display_folded = true
+visibility/visible = false
+
+[node name="NoGames" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 295.0
+margin/top = 200.0
+margin/right = 457.0
+margin/bottom = 214.0
+custom_fonts/font = ExtResource( 3 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+text = "No Save Games Available"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+

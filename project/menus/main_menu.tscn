@@ -1,0 +1,440 @@
+[gd_scene load_steps=20 format=1]
+
+[ext_resource path="res://menus/MainMenu.jpg" type="Texture" id=1]
+[ext_resource path="res://menus/main_menu.gd" type="Script" id=2]
+[ext_resource path="res://menus/MainMenuInfoSpace.png" type="Texture" id=3]
+[ext_resource path="res://menus/GameLogo.png" type="Texture" id=4]
+[ext_resource path="res://fonts/DescriptionFont.fnt" type="BitmapFont" id=5]
+[ext_resource path="res://textures/buttons/AButton.png" type="Texture" id=6]
+[ext_resource path="res://fonts/ButtonNamesFont.fnt" type="BitmapFont" id=7]
+[ext_resource path="res://textures/buttons/BButton.png" type="Texture" id=8]
+[ext_resource path="res://menus/MainMenuPlank03.png" type="Texture" id=9]
+[ext_resource path="res://fonts/HeaderFont.fnt" type="BitmapFont" id=10]
+[ext_resource path="res://menus/menu_button.gd" type="Script" id=11]
+[ext_resource path="res://menus/MainMenuPlank02.png" type="Texture" id=12]
+[ext_resource path="res://menus/MainMenuPlank.png" type="Texture" id=13]
+[ext_resource path="res://menus/message_box.tscn" type="PackedScene" id=14]
+
+[sub_resource type="StyleBoxTexture" id=1]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 9 )
+region_rect = Rect2( 0, 0, 307, 90 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[sub_resource type="StyleBoxEmpty" id=2]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[sub_resource type="StyleBoxEmpty" id=3]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+
+[sub_resource type="StyleBoxTexture" id=4]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 12 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[sub_resource type="StyleBoxTexture" id=5]
+
+content_margin/left = -1.0
+content_margin/right = -1.0
+content_margin/top = -1.0
+content_margin/bottom = -1.0
+texture = ExtResource( 13 )
+margin/left = 0.0
+margin/right = 0.0
+margin/top = 0.0
+margin/bottom = 0.0
+expand_margin/left = 0.0
+expand_margin/right = 0.0
+expand_margin/top = 0.0
+expand_margin/bottom = 0.0
+draw_center = true
+
+[node name="MainMenu" type="TextureFrame"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 1280.0
+margin/bottom = 720.0
+texture = ExtResource( 1 )
+stretch_mode = 0
+script/script = ExtResource( 2 )
+__meta__ = { "_edit_group_":true, "_edit_lock_":true }
+
+[node name="DescriptionArea" type="TextureFrame" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 158.0
+margin/top = 130.0
+margin/right = 652.0
+margin/bottom = 616.0
+texture = ExtResource( 3 )
+stretch_mode = 0
+
+[node name="Logo" type="TextureFrame" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 170.0
+margin/top = 80.0
+margin/right = 634.0
+margin/bottom = 323.0
+texture = ExtResource( 4 )
+stretch_mode = 0
+
+[node name="DescriptionText" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 158.0
+margin/top = 350.0
+margin/right = 652.0
+margin/bottom = 385.0
+custom_fonts/font = ExtResource( 5 )
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="SelectButton" type="TextureFrame" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 1120.0
+margin/top = 610.0
+margin/right = 1166.0
+margin/bottom = 656.0
+texture = ExtResource( 6 )
+stretch_mode = 0
+
+[node name="SelectText" type="Label" parent="SelectButton"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = -120.0
+margin/top = 5.0
+margin/right = -5.0
+margin/bottom = 51.0
+custom_fonts/font = ExtResource( 7 )
+text = "Select"
+align = 2
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ResumeButton" type="TextureFrame" parent="."]
+
+visibility/visible = false
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 225.0
+margin/top = 610.0
+margin/right = 271.0
+margin/bottom = 656.0
+texture = ExtResource( 8 )
+stretch_mode = 0
+
+[node name="ResumeText" type="Label" parent="ResumeButton"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 55.0
+margin/top = 5.0
+margin/right = 170.0
+margin/bottom = 51.0
+custom_fonts/font = ExtResource( 7 )
+text = "Resume"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Buttons" type="VBoxContainer" parent="."]
+
+anchor/top = 1
+anchor/bottom = 1
+rect/min_size = Vector2( 307, 490 )
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 2
+margin/left = 700.0
+margin/top = 620.0
+margin/right = 1007.0
+margin/bottom = 130.0
+custom_constants/separation = -10
+alignment = 2
+
+[node name="NewGameButton" type="Button" parent="Buttons"]
+
+rect/min_size = Vector2( 307, 90 )
+focus_neighbour/bottom = NodePath("../SaveGameButton")
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 80.0
+margin/right = 307.0
+margin/bottom = 170.0
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color = Color( 0.231373, 0.0705882, 0.0235294, 1 )
+custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
+custom_colors/font_color_pressed = Color( 0.972549, 0.854902, 0.498039, 1 )
+toggle_mode = false
+click_on_press = true
+enabled_focus_mode = 1
+shortcut = null
+text = "New Game"
+flat = false
+script/script = ExtResource( 11 )
+description = "Start a New Game"
+position_offset = 15
+
+[node name="SaveGameButton" type="Button" parent="Buttons"]
+
+visibility/visible = false
+rect/min_size = Vector2( 307, 90 )
+focus_neighbour/top = NodePath("../NewGameButton")
+focus_neighbour/bottom = NodePath("../LoadGameButton")
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 80.0
+margin/right = 307.0
+margin/bottom = 170.0
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color = Color( 0.231373, 0.0705882, 0.0235294, 1 )
+custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
+custom_colors/font_color_pressed = Color( 0.972549, 0.854902, 0.498039, 1 )
+toggle_mode = false
+click_on_press = true
+enabled_focus_mode = 1
+shortcut = null
+text = "Save Game"
+flat = false
+script/script = ExtResource( 11 )
+description = "Save the Game"
+position_offset = 30
+
+[node name="LoadGameButton" type="Button" parent="Buttons"]
+
+rect/min_size = Vector2( 307, 90 )
+focus_neighbour/top = NodePath("../SaveGameButton")
+focus_neighbour/bottom = NodePath("../ControlsButton")
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 160.0
+margin/right = 307.0
+margin/bottom = 250.0
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color = Color( 0.231373, 0.0705882, 0.0235294, 1 )
+custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
+custom_colors/font_color_pressed = Color( 0.972549, 0.854902, 0.498039, 1 )
+toggle_mode = false
+click_on_press = true
+enabled_focus_mode = 1
+shortcut = null
+text = "Load Game"
+flat = false
+script/script = ExtResource( 11 )
+description = "Load the Game"
+position_offset = 0
+
+[node name="ControlsButton" type="Button" parent="Buttons"]
+
+rect/min_size = Vector2( 307, 90 )
+focus_neighbour/top = NodePath("../LoadGameButton")
+focus_neighbour/bottom = NodePath("../HelpButton")
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 240.0
+margin/right = 307.0
+margin/bottom = 330.0
+custom_styles/hover = SubResource( 4 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 4 )
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color = Color( 0.231373, 0.0705882, 0.0235294, 1 )
+custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
+custom_colors/font_color_pressed = Color( 0.972549, 0.854902, 0.498039, 1 )
+toggle_mode = false
+click_on_press = true
+enabled_focus_mode = 1
+shortcut = null
+text = "Controls"
+flat = false
+script/script = ExtResource( 11 )
+description = "View Game Controls"
+position_offset = 20
+
+[node name="HelpButton" type="Button" parent="Buttons"]
+
+rect/min_size = Vector2( 307, 90 )
+focus_neighbour/top = NodePath("../ControlsButton")
+focus_neighbour/bottom = NodePath("../ExitButton")
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 320.0
+margin/right = 307.0
+margin/bottom = 410.0
+custom_styles/hover = SubResource( 1 )
+custom_styles/pressed = SubResource( 1 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 3 )
+custom_styles/normal = SubResource( 1 )
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color = Color( 0.231373, 0.0705882, 0.0235294, 1 )
+custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
+custom_colors/font_color_pressed = Color( 0.972549, 0.854902, 0.498039, 1 )
+toggle_mode = false
+click_on_press = true
+enabled_focus_mode = 1
+shortcut = null
+text = "Help"
+flat = false
+script/script = ExtResource( 11 )
+description = "View Game Help"
+position_offset = 0
+
+[node name="ExitButton" type="Button" parent="Buttons"]
+
+rect/min_size = Vector2( 307, 90 )
+focus_neighbour/top = NodePath("../HelpButton")
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 0
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 400.0
+margin/right = 307.0
+margin/bottom = 490.0
+custom_styles/hover = SubResource( 5 )
+custom_styles/pressed = SubResource( 5 )
+custom_styles/focus = SubResource( 2 )
+custom_styles/disabled = SubResource( 2 )
+custom_styles/normal = SubResource( 5 )
+custom_fonts/font = ExtResource( 10 )
+custom_colors/font_color = Color( 0.231373, 0.0705882, 0.0235294, 1 )
+custom_colors/font_color_hover = Color( 0.972549, 0.854902, 0.498039, 1 )
+custom_colors/font_color_pressed = Color( 0.972549, 0.854902, 0.498039, 1 )
+toggle_mode = false
+click_on_press = true
+enabled_focus_mode = 1
+shortcut = null
+text = "Exit"
+flat = false
+script/script = ExtResource( 11 )
+description = "Quit the Game"
+position_offset = 20
+
+[node name="MessageBox" parent="." instance=ExtResource( 14 )]
+
+visibility/visible = false
+
+[connection signal="focused" from="Buttons/NewGameButton" to="." method="_on_button_focused"]
+
+[connection signal="pressed" from="Buttons/NewGameButton" to="." method="_on_NewGameButton_pressed"]
+
+[connection signal="focused" from="Buttons/SaveGameButton" to="." method="_on_button_focused"]
+
+[connection signal="pressed" from="Buttons/SaveGameButton" to="." method="_on_SaveGameButton_pressed"]
+
+[connection signal="focused" from="Buttons/LoadGameButton" to="." method="_on_button_focused"]
+
+[connection signal="pressed" from="Buttons/LoadGameButton" to="." method="_on_LoadGameButton_pressed"]
+
+[connection signal="focused" from="Buttons/ControlsButton" to="." method="_on_button_focused"]
+
+[connection signal="pressed" from="Buttons/ControlsButton" to="." method="_on_ControlsButton_pressed"]
+
+[connection signal="focused" from="Buttons/HelpButton" to="." method="_on_button_focused"]
+
+[connection signal="pressed" from="Buttons/HelpButton" to="." method="_on_HelpButton_pressed"]
+
+[connection signal="focused" from="Buttons/ExitButton" to="." method="_on_button_focused"]
+
+[connection signal="pressed" from="Buttons/ExitButton" to="." method="_on_ExitButton_pressed"]
+
+[connection signal="canceled" from="MessageBox" to="." method="_on_MessageBox_canceled"]
+
+[connection signal="confirmed" from="MessageBox" to="." method="_on_MessageBox_confirmed"]
+
+
