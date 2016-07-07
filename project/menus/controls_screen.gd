@@ -28,6 +28,84 @@ func _ready():
 	set_focus_mode(FOCUS_ALL)
 	grab_focus()
 
+	var action_map = {
+		"main_menu": "Main Menu",
+		"ui_accept": "Ok",
+		"ui_cancel": "Back",
+		"char_screen": "Character Management",
+		"exit_game": "Exit Game",
+		"take_view": "Take / View",
+		"drop": "Drop / Unequip",
+		"move_up": "Move Character - Up",
+		"move_down": "Move Character - Down",
+		"move_left": "Move Character - Left",
+		"move_right": "Move Character - Right",
+		"ui_up": "Move Cursor - Up",
+		"ui_down": "Move Cursor - Down",
+		"decrease": "Decrease Amount",
+		"increase": "Increase Amount",
+		"page_screen_left": "Page Screen Left",
+		"page_screen_right": "Page Screen Right",
+		"target_up": "Select Target -Up",
+		"target_down": "Select Target - Down",
+		"active_char_left": "Select Active Character - Left",
+		"active_char_right": "Select Active Character - Right"
+	}
+
+	var action_list = [
+		"main_menu",
+		"ui_accept",
+		"ui_cancel",
+		"char_screen",
+		"exit_game",
+		"take_view",
+		"drop",
+		"move_up",
+		"move_down",
+		"move_left",
+		"move_right",
+		"ui_up",
+		"ui_down",
+		"decrease",
+		"increase",
+		"page_screen_left",
+		"page_screen_right",
+		"target_up",
+		"target_down",
+		"active_char_left",
+		"active_char_right"
+	]
+
+	var action_text = ""
+	var key1_text = ""
+	var key2_text = ""
+
+	for action in action_list:
+		action_text += action_map[action] + "\n"
+
+		var key_events = []
+
+		for event in InputMap.get_action_list(action):
+			if event.type == InputEvent.KEY:
+				key_events.push_back(OS.get_scancode_string(event.scancode))
+
+		if key_events.size() > 0:
+			key1_text += key_events[0] + "\n"
+			if key_events.size() > 1:
+				key2_text += key_events[1] + "\n"
+			else:
+				key2_text += "---\n"
+		else:
+			key1_text += "---\n"
+			key2_text += "---\n"
+
+
+	action_text = action_text.substr(0, action_text.length() - 1)
+
+	get_node("KeyList/ActionList").set_text(action_text)
+	get_node("KeyList/Key1List").set_text(key1_text.replace("Return", "Enter"))
+	get_node("KeyList/Key2List").set_text(key2_text.replace("Return", "Enter"))
+
 
 func _input_event(event):
 	if event.is_pressed() and not event.is_echo():
