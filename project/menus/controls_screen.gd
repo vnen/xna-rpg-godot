@@ -22,32 +22,62 @@
 
 extends TextureFrame
 
+var showing_gamepad = true
+
 func _ready():
 	set_focus_mode(FOCUS_ALL)
 	grab_focus()
+
 
 func _input_event(event):
 	if event.is_pressed() and not event.is_echo():
 		if event.is_action("ui_down"):
 			accept_event()
-			scroll_text(1)
+			if not showing_gamepad:
+				scroll_action_list(1)
 		elif event.is_action("ui_up"):
 			accept_event()
-			scroll_text(-1)
+			if not showing_gamepad:
+				scroll_action_list(-1)
 		elif event.is_action("ui_cancel"):
 			accept_event()
 			release_focus()
 			queue_free()
+		elif event.is_action("page_screen_left") or event.is_action("page_screen_right"):
+			accept_event()
+			change_page()
 
 
-func scroll_text(amount):
-	var text = get_node("HelpText")
-	var lines = text.get_line_count()
-	var max_lines = text.get_max_lines_visible()
+func scroll_action_list(amount):
+	var action_list = get_node("KeyList/ActionList")
+	var lines_skipped = 0
+	var lines = action_list.get_line_count()
+	var max_lines = action_list.get_max_lines_visible()
 
-	if lines <= max_lines:
-		# No need to scroll if all lines are visible at once
-		text.set_lines_skipped(0)
-	else:
+	if lines > max_lines:
 		# Scroll by amount but clamp it to valid values
-		text.set_lines_skipped(clamp(text.get_lines_skipped() + amount, 0, lines - max_lines))
+		lines_skipped = clamp(action_list.get_lines_skipped() + amount, 0, lines - max_lines)
+
+	action_list.set_lines_skipped(lines_skipped)
+	get_node("KeyList/Key1List").set_lines_skipped(lines_skipped)
+	get_node("KeyList/Key2List").set_lines_skipped(lines_skipped)
+
+func change_page():
+	if showing_gamepad:
+		# Change to keyboard view
+		get_node("TitlePlank/TitleText").set_text("Keyboard")
+		get_node("RightTriggerButton/RightTriggerLabel").set_text("Gamepad")
+		get_node("LeftTriggerButton/LeftTriggerLabel").set_text("Gamepad")
+		get_node("Joystick").hide()
+		get_node("KeyListBG").show()
+		get_node("KeyList").show()
+		showing_gamepad = false
+	else:
+		# Change to gamepad view
+		get_node("TitlePlank/TitleText").set_text("Gamepad")
+		get_node("RightTriggerButton/RightTriggerLabel").set_text("Keyboard")
+		get_node("LeftTriggerButton/LeftTriggerLabel").set_text("Keyboard")
+		get_node("Joystick").show()
+		get_node("KeyListBG").hide()
+		get_node("KeyList").hide()
+		showing_gamepad = true

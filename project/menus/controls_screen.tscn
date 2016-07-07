@@ -1,13 +1,20 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=12 format=1]
 
 [ext_resource path="res://menus/content_screen.tscn" type="PackedScene" id=1]
-[ext_resource path="res://textures/buttons/LeftTriggerButton.png" type="Texture" id=2]
-[ext_resource path="res://fonts/PlayerStatisticsFont.fnt" type="BitmapFont" id=3]
-[ext_resource path="res://textures/buttons/RightTriggerButton.png" type="Texture" id=4]
-[ext_resource path="res://menus/ControlJoystick.png" type="Texture" id=5]
-[ext_resource path="res://fonts/DescriptionFont.fnt" type="BitmapFont" id=6]
+[ext_resource path="res://menus/controls_screen.gd" type="Script" id=2]
+[ext_resource path="res://textures/buttons/LeftTriggerButton.png" type="Texture" id=3]
+[ext_resource path="res://fonts/PlayerStatisticsFont.fnt" type="BitmapFont" id=4]
+[ext_resource path="res://textures/buttons/RightTriggerButton.png" type="Texture" id=5]
+[ext_resource path="res://menus/ControlJoystick.png" type="Texture" id=6]
+[ext_resource path="res://fonts/DescriptionFont.fnt" type="BitmapFont" id=7]
+[ext_resource path="res://menus/KeyboardBkgd.png" type="Texture" id=8]
+[ext_resource path="res://menus/ScrollUp.png" type="Texture" id=9]
+[ext_resource path="res://menus/ScrollDown.png" type="Texture" id=10]
+[ext_resource path="res://fonts/CaptionFont.fnt" type="BitmapFont" id=11]
 
 [node name="ControlsScreen" instance=ExtResource( 1 )]
+
+script/script = ExtResource( 2 )
 
 [node name="TitlePlank" parent="."]
 
@@ -42,7 +49,7 @@ margin/left = 320.0
 margin/top = 50.0
 margin/right = 380.0
 margin/bottom = 136.0
-texture = ExtResource( 2 )
+texture = ExtResource( 3 )
 stretch_mode = 0
 
 [node name="LeftTriggerLabel" type="Label" parent="LeftTriggerButton"]
@@ -57,7 +64,7 @@ margin/left = 100.0
 margin/top = 85.0
 margin/right = -100.0
 margin/bottom = 110.0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Keyboard"
 align = 1
@@ -76,7 +83,7 @@ margin/left = 900.0
 margin/top = 50.0
 margin/right = 940.0
 margin/bottom = 90.0
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 stretch_mode = 0
 
 [node name="RightTriggerLabel" type="Label" parent="RightTriggerButton"]
@@ -91,7 +98,7 @@ margin/left = 100.0
 margin/top = 85.0
 margin/right = -100.0
 margin/bottom = 110.0
-custom_fonts/font = ExtResource( 3 )
+custom_fonts/font = ExtResource( 4 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Keyboard"
 align = 1
@@ -110,7 +117,7 @@ margin/left = 450.0
 margin/top = 180.0
 margin/right = 816.0
 margin/bottom = 550.0
-texture = ExtResource( 5 )
+texture = ExtResource( 6 )
 stretch_mode = 0
 
 [node name="LeftTriggerText" type="Label" parent="Joystick"]
@@ -123,7 +130,7 @@ margin/left = -200.0
 margin/top = -9.0
 margin/right = 0.0
 margin/bottom = 14.0
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Page Left"
 align = 2
@@ -142,7 +149,7 @@ margin/left = -200.0
 margin/top = 41.0
 margin/right = 0.0
 margin/bottom = 14.0
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "N/A"
 align = 2
@@ -161,7 +168,7 @@ margin/left = -200.0
 margin/top = 111.0
 margin/right = 0.0
 margin/bottom = 145.0
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Main Menu"
 align = 2
@@ -180,7 +187,7 @@ margin/left = -200.0
 margin/top = 161.0
 margin/right = 0.0
 margin/bottom = 195.0
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Exit Game"
 align = 2
@@ -199,7 +206,7 @@ margin/left = -200.0
 margin/top = 221.0
 margin/right = 0.0
 margin/bottom = 14.0
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Navigation"
 align = 2
@@ -218,7 +225,7 @@ margin/left = -200.0
 margin/top = 276.0
 margin/right = 0.0
 margin/bottom = 14.0
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Navigation"
 align = 2
@@ -237,7 +244,7 @@ margin/left = -200.0
 margin/top = 331.0
 margin/right = 0.0
 margin/bottom = 14.0
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "N/A"
 align = 2
@@ -256,9 +263,9 @@ margin/left = 368.0
 margin/top = -9.0
 margin/right = 0.0
 margin/bottom = 26.0
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
-text = "Page Righ"
+text = "Page Right"
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
@@ -274,7 +281,7 @@ margin/left = 368.0
 margin/top = 51.0
 margin/right = 0.0
 margin/bottom = 76.0
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "N/A"
 valign = 1
@@ -292,7 +299,7 @@ margin/left = 368.0
 margin/top = 116.0
 margin/right = 0.0
 margin/bottom = 146.0
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Character Management"
 valign = 1
@@ -310,7 +317,7 @@ margin/left = 368.0
 margin/top = 176.0
 margin/right = 0.0
 margin/bottom = 196.0
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Back"
 valign = 1
@@ -328,7 +335,7 @@ margin/left = 368.0
 margin/top = 256.0
 margin/right = 0.0
 margin/bottom = 256.0
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "OK"
 valign = 1
@@ -346,12 +353,181 @@ margin/left = 368.0
 margin/top = 331.0
 margin/right = 0.0
 margin/bottom = 366.0
-custom_fonts/font = ExtResource( 6 )
+custom_fonts/font = ExtResource( 7 )
 custom_colors/font_color = Color( 0, 0, 0, 1 )
 text = "Drop Gear"
 valign = 1
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="KeyListBG" type="TextureFrame" parent="."]
+
+editor/display_folded = true
+visibility/visible = false
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 305.0
+margin/top = 185.0
+margin/right = 983.0
+margin/bottom = 530.0
+texture = ExtResource( 8 )
+stretch_mode = 0
+
+[node name="ScrollUp" type="TextureFrame" parent="KeyListBG"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 685.0
+margin/top = 50.0
+margin/right = 718.0
+margin/bottom = 86.0
+texture = ExtResource( 9 )
+stretch_mode = 0
+
+[node name="ScrollDown" type="TextureFrame" parent="KeyListBG"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 685.0
+margin/top = 305.0
+margin/right = 718.0
+margin/bottom = 341.0
+texture = ExtResource( 10 )
+stretch_mode = 0
+
+[node name="KeyList" type="Container" parent="."]
+
+editor/display_folded = true
+visibility/visible = false
+rect/min_size = Vector2( 678, 345 )
+focus/ignore_mouse = false
+focus/stop_mouse = false
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 305.0
+margin/top = 185.0
+margin/right = 345.0
+margin/bottom = 225.0
+
+[node name="Action" type="Label" parent="KeyList"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 30.0
+margin/top = 15.0
+margin/right = 340.0
+margin/bottom = 40.0
+custom_fonts/font = ExtResource( 11 )
+custom_colors/font_color = Color( 0.894118, 0.658824, 0.223529, 1 )
+text = "Action"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Key1" type="Label" parent="KeyList"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 340.0
+margin/top = 15.0
+margin/right = 510.0
+margin/bottom = 40.0
+custom_fonts/font = ExtResource( 11 )
+custom_colors/font_color = Color( 0.894118, 0.658824, 0.223529, 1 )
+text = "Key 1"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="Key2" type="Label" parent="KeyList"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 510.0
+margin/top = 15.0
+margin/right = 670.0
+margin/bottom = 40.0
+custom_fonts/font = ExtResource( 11 )
+custom_colors/font_color = Color( 0.894118, 0.658824, 0.223529, 1 )
+text = "Key 2"
+align = 1
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="ActionList" type="Label" parent="KeyList"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 30.0
+margin/top = 68.0
+margin/right = 340.0
+margin/bottom = 379.0
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = 12
+text = "Main Menu\nOk\nBack\nCharacter Management\nExit Game\nTake / View\nDrop / Unequip\nMove Character - Up"
+align = 1
+clip_text = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = 6
+
+[node name="Key1List" type="Label" parent="KeyList"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 340.0
+margin/top = 68.0
+margin/right = 510.0
+margin/bottom = 379.0
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = 12
+text = "Tab\nEnter\nEscape\nSpace\nEscape\nLeftControl\nD\nUp"
+align = 1
+clip_text = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = 6
+
+[node name="Key2List" type="Label" parent="KeyList"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 510.0
+margin/top = 68.0
+margin/right = 670.0
+margin/bottom = 379.0
+custom_fonts/font = ExtResource( 7 )
+custom_colors/font_color = Color( 0, 0, 0, 1 )
+custom_constants/line_spacing = 12
+text = "---\n---\n---\n---\n---\n---\n---\n---"
+align = 1
+clip_text = true
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = 6
 
 
