@@ -26,9 +26,13 @@ available to download at the [releases section](https://github.com/vnen/xna-rpg-
 For that you need just to unpack somewhere and run it. You might need to install
 the [XNA Framework Redistributable](https://www.microsoft.com/en-us/download/details.aspx?id=20914).
 
-To build the original game requires the XNA framework. Since it's not available
-on recent Windows versions, you can use [MXA](https://mxa.codeplex.com/) instead.
-It may or may not work with (MonoGame)[http://www.monogame.net/].
+To build the original game requires the XNA framework 4.0. Since it's not available
+on recent Windows versions, you can try to install it following the steps [on this blog post](https://blogs.msdn.microsoft.com/astebner/2009/06/12/steps-to-install-xna-game-studio-without-using-the-setup-bootstrapper/),
+which bypass the bootstrapper and then allows it to be installed on Windows newer than Seven.
+You can also use [MXA](https://mxa.codeplex.com/) instead, though that don't come with XNA Live Proxy,
+so you'll have to remove the `GamerServicesComponent`.
+
+It may or may not work with [MonoGame](http://www.monogame.net/]).
 
 ## License
 

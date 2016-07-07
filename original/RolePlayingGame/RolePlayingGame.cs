@@ -43,7 +43,7 @@ namespace RolePlaying
             Content.RootDirectory = "Content";
 
             // add a gamer-services component, which is required for the storage APIs
-            //Components.Add(new GamerServicesComponent(this));
+            Components.Add(new GamerServicesComponent(this));
 
             // add the audio manager
             AudioManager.Initialize(this, @"Content\Audio\RpgAudio.xgs", 
