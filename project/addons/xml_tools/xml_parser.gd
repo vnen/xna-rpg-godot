@@ -26,24 +26,26 @@
 # class. It's meant to help building specific importers for the XNA content
 # files, since they're similar to some extent.
 
+tool
 extends XMLParser
 
 # Move the cursor to the next element node. It can also expect a certain
 # element name.
 func next_element(element = null):
-	var err = next(NODE_ELEMENT)
+	var err = _next(NODE_ELEMENT)
 	if err != OK or element == null:
 		return err
 	if element != get_node_name():
 		return ERR_INVALID_DATA
+	return OK
 
 # Move the cursor to the next text node.
 func next_text():
-	return next(NODE_TEXT)
+	return _next(NODE_TEXT)
 
 # Move the cursor to the next ending node.
 func next_end(element = null):
-	var err = next(NODE_ELEMENT_END)
+	var err = _next(NODE_ELEMENT_END)
 	if err != OK or element == null:
 		return err
 	if element != get_node_name():
@@ -62,12 +64,9 @@ func expect_end(element = null):
 # Get the content of the next element, with optional tag name.
 # If the element has sub-elements this will return an error code.
 func get_element_content(element = null):
-	var err = next_element()
+	var err = next_element(element)
 	if err != OK:
 		return err
-
-	if element != null and get_node_name() != element:
-		return ERR_INVALID_DATA
 
 	err = read()
 	if err != OK:
@@ -89,7 +88,7 @@ func get_element_content(element = null):
 # Parser a Vector2 from a text. Returns an error if the text is invalid.
 func parse_vector2(element):
 	var content = get_element_content(element)
-	var values = content.stript_edges().split_floats(" ", false)
+	var values = content.strip_edges().split_floats(" ", false)
 	if values.size() != 2:
 		return ERR_INVALID_DATA
 	return Vector2(values[0], values[1])
@@ -164,7 +163,7 @@ func _next(node_type):
 
 # Skip blank space
 func _skip(text=true):
-	var err = read()
+	var err = OK
 	var blanks = [NODE_UNKNOWN,NODE_CDATA,NODE_COMMENT]
 	if text:
 		blanks.push_back(NODE_TEXT)
