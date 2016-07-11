@@ -305,7 +305,7 @@ func make_map(parent, map_data, metadata):
 	for y in range(map_data["TileSize"].y):
 		for x in range(map_data["TileSize"].x):
 			collision_image.put_pixel(x, y, Color(0,0,0,0))
-			collision_image.put_pixel(map_data["TileSize"].x + x, y, Color(1,0,0,1))
+			collision_image.put_pixel(map_data["TileSize"].x + x, y, Color(1,0,0,0.3))
 			pass
 	var collision_texture = ImageTexture.new()
 	collision_texture.create_from_image(collision_image, 0)
