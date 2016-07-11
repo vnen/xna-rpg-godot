@@ -134,15 +134,15 @@ func parse_obj_array(element, item_parser):
 	if err != OK:
 		return err
 
+	if is_empty():
+		# The element is empty, move on
+		return []
+
 	var arr = []
 
-	# Save the file offset to go back if needed
-	var offset = get_node_offset()
 	err = next_element("Item")
 	if err != OK:
-		# Likely the array is empty, but got back first
-		seek(offset)
-		return arr
+		return err
 
 	while true:
 		var ret = item_parser.call_func(self)
@@ -156,12 +156,12 @@ func parse_obj_array(element, item_parser):
 		err = next_element_end("Item")
 		if err != OK:
 			return err
-		
+
 		# Skip the element ending
 		err = read()
 		if err != OK:
 			return err
-		
+
 		_skip(true)
 		if expect_end(element) == OK:
 			# Reached the end of the array
@@ -176,7 +176,7 @@ func parse_obj_array(element, item_parser):
 	err = read()
 	if err != OK:
 		return err
-	
+
 	return arr
 
 ################################################################################
