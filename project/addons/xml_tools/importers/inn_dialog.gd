@@ -25,6 +25,7 @@ extends ConfirmationDialog
 
 var src_file_browse
 var dst_file_browse
+var script_file_browse
 var textures_folder_browse
 var inn_importer
 
@@ -56,6 +57,14 @@ func _ready():
 
 	add_child(dst_file_browse)
 
+	script_file_browse = EditorFileDialog.new()
+	script_file_browse.set_mode(EditorFileDialog.MODE_OPEN_FILE)
+	script_file_browse.set_current_dir(get_node("container/script_file").get_text().get_base_dir())
+	script_file_browse.add_filter("*.gd")
+	script_file_browse.connect("file_selected", self, "_on_script_selected")
+
+	add_child(script_file_browse)
+
 	textures_folder_browse = EditorFileDialog.new()
 	textures_folder_browse.set_mode(EditorFileDialog.MODE_OPEN_DIR)
 	textures_folder_browse.set_current_dir(get_node("container/textures_folder").get_text())
@@ -72,6 +81,9 @@ func _on_src_browse_pressed():
 func _on_dst_browse_pressed():
 	dst_file_browse.popup_centered_ratio()
 
+func _on_script_browse_pressed():
+	script_file_browse.popup_centered_ratio()
+
 func _on_textures_browse_pressed():
 	textures_folder_browse.popup_centered_ratio()
 
@@ -81,6 +93,9 @@ func _on_src_selected(path):
 func _on_dst_selected(path):
 	get_node("container/dst_file").set_text(path)
 
+func _on_script_selected(path):
+	get_node("container/script_file").set_text(path)
+
 func _on_textures_selected(path):
 	get_node("container/textures_folder").set_text(path)
 
@@ -88,6 +103,7 @@ func _on_InnImportDialog_confirmed():
 	var md = ResourceImportMetadata.new()
 	md.add_source(inn_importer.validate_source_path(get_node("container/src_file").get_text()))
 	md.set_option("textures_dir", get_node("container/textures_folder").get_text())
+	md.set_option("script_path", get_node("container/script_file").get_text())
 	var err = inn_importer.import(get_node("container/dst_file").get_text(), md)
 
 	if err != OK:

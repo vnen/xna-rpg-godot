@@ -63,10 +63,21 @@ func parse(file, parent, metadata):
 # Build the inn scene based on the parsed data.
 func make_inn(parent, inn_data, metadata):
 	# Load the shop keeper texture resource
-	var tileset = load(metadata.get_option("textures_dir").plus_file(inn_data["ShopkeeperTextureName"] + ".png"))
+	var tileset = ResourceLoader.load( \
+		metadata.get_option("textures_dir").plus_file(inn_data["ShopkeeperTextureName"] + ".png"), "Texture" \
+	)
 	if tileset == null:
 		return ERR_CANT_AQUIRE_RESOURCE
 
+	# Load the inn script
+	var script = ResourceLoader.load(metadata.get_option("script_path"), "Script")
+	if script == null:
+		return ERR_CANT_AQUIRE_RESOURCE
+
 	parent.set_name(asset_name)
+	parent.set_script(script)
+
+	# Set the name in the script
+	parent.name = asset_name
 
 	return OK

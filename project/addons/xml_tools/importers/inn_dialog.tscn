@@ -11,7 +11,7 @@ size_flags/vertical = 2
 margin/left = 0.0
 margin/top = 0.0
 margin/right = 598.0
-margin/bottom = 162.0
+margin/bottom = 174.0
 popup/exclusive = false
 window/title = "XNA Inn Importer"
 dialog/hide_on_ok = true
@@ -126,7 +126,7 @@ shortcut = null
 text = "browse"
 flat = false
 
-[node name="textures" type="Label" parent="container"]
+[node name="script" type="Label" parent="container"]
 
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -136,6 +136,53 @@ margin/left = 0.0
 margin/top = 61.0
 margin/right = 96.0
 margin/bottom = 75.0
+text = "Inn Script"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="script_file" type="LineEdit" parent="container"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 3
+size_flags/vertical = 2
+margin/left = 106.0
+margin/top = 56.0
+margin/right = 490.0
+margin/bottom = 80.0
+text = "res://maps/inns/inn.gd"
+placeholder/alpha = 0.6
+focus_mode = 2
+caret/caret_blink = true
+caret/caret_blink_speed = 0.65
+
+[node name="script_browse" type="Button" parent="container"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 500.0
+margin/top = 56.0
+margin/right = 558.0
+margin/bottom = 80.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "browse"
+flat = false
+
+[node name="textures" type="Label" parent="container"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 89.0
+margin/right = 96.0
+margin/bottom = 103.0
 text = "Textures folder"
 percent_visible = 1.0
 lines_skipped = 0
@@ -149,9 +196,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 106.0
-margin/top = 56.0
+margin/top = 84.0
 margin/right = 490.0
-margin/bottom = 80.0
+margin/bottom = 108.0
 text = "res://entities/characters/textures"
 placeholder/alpha = 0.6
 focus_mode = 2
@@ -165,9 +212,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 500.0
-margin/top = 56.0
+margin/top = 84.0
 margin/right = 558.0
-margin/bottom = 80.0
+margin/bottom = 108.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -194,6 +241,8 @@ dialog/hide_on_ok = true
 [connection signal="pressed" from="container/src_browse" to="." method="_on_src_browse_pressed"]
 
 [connection signal="pressed" from="container/dst_browse" to="." method="_on_dst_browse_pressed"]
+
+[connection signal="pressed" from="container/script_browse" to="." method="_on_script_browse_pressed"]
 
 [connection signal="pressed" from="container/textures_browse" to="." method="_on_textures_browse_pressed"]
 
