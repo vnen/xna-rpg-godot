@@ -90,8 +90,172 @@ func parse(file, parent, metadata):
 	err = read_int_array("CollisionLayer", map_data)
 	if err != OK:
 		return err
+	
+	# Read the portals
+	err = read_object_array("Portals", map_data, funcref(self, "parse_portal_item"))
+	if err != OK:
+		return err
+	
+	# Read the portal entries
+	err = read_object_array("PortalEntries", map_data, funcref(self, "parse_entry_item"))
+	if err != OK:
+		return err
+	
+	# Read the chest entries
+	err = read_object_array("ChestEntries", map_data, funcref(self, "parse_entry_item"))
+	if err != OK:
+		return err
+		
+	# Read the fixed combat entries
+	err = read_object_array("FixedCombatEntries", map_data, funcref(self, "parse_entry_item_with_direction"))
+	if err != OK:
+		return err
+	
+	# Read the random combat data
+	err = read_random_combat(map_data)
+	if err != OK:
+		return err
+	
+	# Read the quest NPCs
+	err = read_object_array("QuestNpcEntries", map_data, funcref(self, "parse_entry_item_with_direction"))
+	if err != OK:
+		return err
+	
+	# Read the regular NPCs
+	err = read_object_array("PlayerNpcEntries", map_data, funcref(self, "parse_entry_item_with_direction"))
+	if err != OK:
+		return err
+	
+	# Read the Inns
+	err = read_object_array("InnEntries", map_data, funcref(self, "parse_entry_item"))
+	if err != OK:
+		return err
+	
+	# Read the Stores
+	err = read_object_array("StoreEntries", map_data, funcref(self, "parse_entry_item"))
+	if err != OK:
+		return err
+		
+	# Finished :)
 
 	return make_map(parent, map_data, metadata)
+
+# Parse each portal item
+func parse_portal_item(parser):
+	var portal = {}
+	
+	# Read the name of the portal
+	var err = read_string("Name", portal)
+	if err != OK:
+		return err
+	
+	# Read the landing pos of the portal
+	err = read_vector2("LandingMapPosition", portal)
+	if err != OK:
+		return err
+	
+	# Read the destination map of the portal
+	err = read_string("DestinationMapContentName", portal)
+	if err != OK:
+		return err
+	
+	# Read the destination portal of the portal
+	err = read_string("DestinationMapPortalName", portal)
+	if err != OK:
+		return err
+	
+	# Read the end element
+	err = read()
+	if err != OK:
+		return err
+	
+	return portal
+
+
+# Parse each entry item. For portal and chest entries.
+func parse_entry_item(parser):
+	var entry = {}
+	
+	# Read the content name of the entry
+	var err = read_string("ContentName", entry)
+	if err != OK:
+		return err
+	
+	# Read the map pos of the entry
+	err = read_vector2("MapPosition", entry)
+	if err != OK:
+		return err
+	
+	return entry
+
+# Parse each entry item with direction data. For NPCs.
+func parse_entry_item_with_direction(parser):
+	var entry = {}
+	
+	# Read the content name of the entry
+	var err = read_string("ContentName", entry)
+	if err != OK:
+		return err
+	
+	# Read the map pos of the entry
+	err = read_vector2("MapPosition", entry)
+	if err != OK:
+		return err
+	
+	# Read the direction of the entry
+	var err = read_string("Direction", entry)
+	if err != OK:
+		return err
+	
+	return entry
+
+# Read the random combat information.
+func read_random_combat(map_data):
+	var err = next_element("RandomCombat")
+	if err != OK:
+		return err
+	
+	var random_combat = {}
+	
+	err = read_int("CombatProbability", random_combat)
+	if err != OK:
+		return err
+	
+	err = read_int("FleeProbability", random_combat)
+	if err != OK:
+		return err
+	
+	err = read_range("MonsterCountRange", random_combat)
+	if err != OK:
+		return err
+	
+	err = read_object_array("Entries", random_combat, funcref(self, "parse_randomcombat_entry_item"))
+	if err != OK:
+		return err
+	
+	map_data["RandomCombat"] = random_combat
+	return OK
+
+# Parse each random combat monsetr entry item.
+func parse_randomcombat_entry_item(parser):
+	var entry = {}
+	
+	# Read the content name of the entry
+	var err = read_string("ContentName", entry)
+	if err != OK:
+		return err
+	
+	# Read the count the entry
+	err = read_int("Count", entry)
+	if err != OK:
+		return err
+	
+	# Read the weight of the entry
+	var err = read_int("Weight", entry)
+	if err != OK:
+		return err
+	
+	return entry
 
 # Build the map resource based on the parsed data.
 func make_map(parent, map_data, metadata):

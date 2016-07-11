@@ -31,8 +31,18 @@ extends XMLParser
 
 # Move the cursor to the next element node. It can also expect a certain
 # element name.
-func next_element(element = null):
-	var err = _next(NODE_ELEMENT)
+func next_element(element = null, do_read = true):
+	var err = _next(NODE_ELEMENT, do_read)
+	if err != OK or element == null:
+		return err
+	if element != get_node_name():
+		return ERR_INVALID_DATA
+	return OK
+
+# Move the cursor to the next ending element. It can also expect a certain
+# element name.
+func next_element_end(element = null):
+	var err = _next(NODE_ELEMENT_END)
 	if err != OK or element == null:
 		return err
 	if element != get_node_name():
@@ -50,6 +60,14 @@ func next_end(element = null):
 		return err
 	if element != get_node_name():
 		return ERR_INVALID_DATA
+
+# Check if the cursor is in an element node. Can check if it's a certain element.
+func is_element(element = null):
+	if get_node_type() != NODE_ELEMENT:
+		return false
+	if element == null or get_node_name() == element:
+		return true
+	return false
 
 # Expect the element to end now and have no further content.
 # If the element argument is null, check for the end of any tag.
@@ -88,6 +106,9 @@ func get_element_content(element = null):
 # Parser a Vector2 from a text. Returns an error if the text is invalid.
 func parse_vector2(element):
 	var content = get_element_content(element)
+	if typeof(content) == TYPE_INT:
+		# Errored
+		return content
 	var values = content.strip_edges().split_floats(" ", false)
 	if values.size() != 2:
 		return ERR_INVALID_DATA
@@ -103,10 +124,10 @@ func parse_int_array(element):
 	return arr
 
 # Parse an array of objects with a specific parser for each item.
-# The item parser must have a parse_item(XMLParser) function, which
-# must return an error code.
+# The item parser must be a FuncRef referencing a function that receives a
+# this XMLParser and returns the generated object.
 func parse_obj_array(element, item_parser):
-	if not item_parser.has_method("parse_item"):
+	if typeof(item_parser) != TYPE_OBJECT or not item_parser extends FuncRef:
 		return ERR_INVALID_PARAMETER
 
 	var err = next_element(element)
@@ -115,45 +136,58 @@ func parse_obj_array(element, item_parser):
 
 	var arr = []
 
+	# Save the file offset to go back if needed
+	var offset = get_node_offset()
 	err = next_element("Item")
 	if err != OK:
-		return err
+		# Likely the array is empty, but got back first
+		seek(offset)
+		return arr
 
 	while true:
-		var ret = item_parser.parse_item(self)
-		if ret != OK:
+		var ret = item_parser.call_func(self)
+		if typeof(ret) == TYPE_INT:
+			# If it returns an int then it should be an error
 			return ret
+
 		arr.push_back(ret)
 
-		_skip()
-		err = expect_end("Item")
+		# Go to next item ending
+		err = next_element_end("Item")
 		if err != OK:
 			return err
-
-		err = _skip()
+		
+		# Skip the element ending
+		err = read()
 		if err != OK:
 			return err
-
+		
+		_skip(true)
 		if expect_end(element) == OK:
 			# Reached the end of the array
 			break
 
-		# Read the next item
-		err = next_element("Item")
-		if err != OK:
-			return err
+		# Check if it's an item
+		var is_item = is_element("Item")
+		if not is_item:
+			return ERR_INVALID_DATA
 
-	# Skip the ending element and following blank space
-	read()
-	return _skip()
+	# Skip the ending element
+	err = read()
+	if err != OK:
+		return err
+	
+	return arr
 
 ################################################################################
 # Inner functions                                                              #
 ################################################################################
 
 # Inner helper function to move to a next type of node.
-func _next(node_type):
-	var err = read()
+func _next(node_type, do_read = true):
+	var err = OK
+	if do_read:
+		err = read()
 	while get_node_type() != node_type:
 		err = read()
 

@@ -80,6 +80,51 @@ func read_string(element, data):
 	data[element] = content
 	return OK
 
+# Read an integer from the file and store it in data using element as key name.
+func read_int(element, data):
+	var content = get_element_content(element)
+	if typeof(content) == TYPE_INT:
+		# It's an error code
+		return content
+	var err = read()
+	if err != OK:
+		return err
+	err = expect_end(element)
+	if err != OK:
+		return err
+
+	if not content.is_valid_integer():
+		return ERR_INVALID_DATA
+
+	# If it got here then there's no error
+	data[element] = int(content)
+	return OK
+
+# Read a range as a two-element array
+func read_range(element, data):
+	var err = next_element(element)
+	if err != OK:
+		return err
+	
+	var range_data = {}
+	
+	err = read_int("Minimum", range_data)
+	if err != OK:
+		return err
+	
+	err = read_int("Maximum", range_data)
+	if err != OK:
+		return err
+	
+	# Read the maximum end tag
+	err = read()
+	if err != OK:
+		return err
+	
+	# If it got here then there's no error
+	data[element] = [int(range_data["Minimum"]),int(range_data["Maximum"])]
+	return OK
+
 # Read an IntArray from the file and store it in data using element as key name.
 func read_int_array(element, data):
 	var int_arr = parse_int_array(element)
@@ -95,4 +140,15 @@ func read_int_array(element, data):
 
 	# If it got here then there's no error
 	data[element] = int_arr
+	return OK
+
+# Read an array of objects using a custom item parsing function.
+func read_object_array(element, data, item_parser):
+	var obj_arr = parse_obj_array(element, item_parser)
+	if typeof(obj_arr) == TYPE_INT:
+		# Errored
+		return obj_arr
+	
+	# If it got here then there's no error
+	data[element] = obj_arr
 	return OK
