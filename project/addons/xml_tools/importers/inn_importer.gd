@@ -20,22 +20,52 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+# Inn scene importer.
+
 tool
-extends EditorPlugin
+extends EditorImportPlugin
 
-var map_importer = null
-var inn_importer = null
+var plugin_name = "gm.xna.inn_importer"
+var dialog = null
+var inn_parser = null
 
-func _enter_tree():
-	map_importer = preload("importers/map_importer.gd").new()
-	map_importer.config(get_base_control())
-	add_import_plugin(map_importer)
+func get_name():
+	return plugin_name
 
-	inn_importer = preload("importers/inn_importer.gd").new()
-	inn_importer.config(get_base_control())
-	add_import_plugin(inn_importer)
+func get_visible_name():
+	return "XNA Inn"
 
+func import_dialog(from):
+	var md = null
+	if from != "":
+		md = ResourceLoader.load_import_metadata(from)
+	dialog.config(self, from, md)
+	dialog.popup_centered()
 
-func _exit_tree():
-	remove_import_plugin(map_importer)
-	remove_import_plugin(inn_importer)
+func import(target, metadata):
+	assert(metadata.get_source_count() == 1)
+
+	var source = metadata.get_source_path(0)
+
+	var inn = Node2D.new()
+
+	var err = inn_parser.parse(source, inn, metadata)
+	if err != OK:
+		return err
+
+	var pack = PackedScene.new()
+
+	pack.pack(inn)
+
+	metadata.set_editor(plugin_name)
+	var f = File.new()
+	metadata.set_source_md5(0, f.get_md5(source))
+	pack.set_import_metadata(metadata)
+
+	return ResourceSaver.save(target, pack)
+
+func config(base_control):
+	dialog = preload("inn_dialog.tscn").instance()
+	inn_parser = load("res://addons/xml_tools/inn_parser.gd")
+	inn_parser = inn_parser.new()
+	base_control.add_child(dialog)

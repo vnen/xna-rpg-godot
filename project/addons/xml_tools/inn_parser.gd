@@ -21,21 +21,52 @@
 # SOFTWARE.
 
 tool
-extends EditorPlugin
+extends "res://addons/xml_tools/base_parser.gd"
 
-var map_importer = null
-var inn_importer = null
+func parse(file, parent, metadata):
 
-func _enter_tree():
-	map_importer = preload("importers/map_importer.gd").new()
-	map_importer.config(get_base_control())
-	add_import_plugin(map_importer)
+	var err = open(file)
+	if err != OK:
+		return err
 
-	inn_importer = preload("importers/inn_importer.gd").new()
-	inn_importer.config(get_base_control())
-	add_import_plugin(inn_importer)
+	# Read the header of the file to make sure it's a Map
+	err = read_header("Inn")
+	if err != OK:
+		return err
 
+	var inn_data = {}
 
-func _exit_tree():
-	remove_import_plugin(map_importer)
-	remove_import_plugin(inn_importer)
+	err = read_int("ChargePerPlayer", inn_data)
+	if err != OK:
+		return err
+
+	err = read_string("WelcomeMessage", inn_data)
+	if err != OK:
+		return err
+
+	err = read_string("PaidMessage", inn_data)
+	if err != OK:
+		return err
+
+	err = read_string("NotEnoughGoldMessage", inn_data)
+	if err != OK:
+		return err
+
+	err = read_string("ShopkeeperTextureName", inn_data)
+	if err != OK:
+		return err
+
+	# Finished :)
+
+	return make_inn(parent, inn_data, metadata)
+
+# Build the inn scene based on the parsed data.
+func make_inn(parent, inn_data, metadata):
+	# Load the shop keeper texture resource
+	var tileset = load(metadata.get_option("textures_dir").plus_file(inn_data["ShopkeeperTextureName"] + ".png"))
+	if tileset == null:
+		return ERR_CANT_AQUIRE_RESOURCE
+
+	parent.set_name(asset_name)
+
+	return OK
