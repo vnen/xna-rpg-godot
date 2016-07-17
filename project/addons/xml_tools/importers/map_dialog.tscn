@@ -57,10 +57,10 @@ margin/left = 94.0
 margin/top = 0.0
 margin/right = 490.0
 margin/bottom = 24.0
-text = "C:/Users/georg/workspace/godot/xna-rpg/original/RolePlayingGame/Content/Maps/Map001.xml"
+text = "C:/Users/georg/workspace/godot/xna-rpg/original/RolePlayingGame/Content/Maps/Map009.xml"
 placeholder/alpha = 0.6
 focus_mode = 2
-caret/caret_blink = false
+caret/caret_blink = true
 caret/caret_blink_speed = 0.65
 
 [node name="src_browse" type="Button" parent="container"]
@@ -107,7 +107,7 @@ margin/bottom = 52.0
 text = "res://teste.tscn"
 placeholder/alpha = 0.6
 focus_mode = 2
-caret/caret_blink = false
+caret/caret_blink = true
 caret/caret_blink_speed = 0.65
 
 [node name="dst_browse" type="Button" parent="container"]
@@ -155,7 +155,7 @@ margin/bottom = 80.0
 text = "res://maps/tileset"
 placeholder/alpha = 0.6
 focus_mode = 2
-caret/caret_blink = false
+caret/caret_blink = true
 caret/caret_blink_speed = 0.65
 
 [node name="tilesets_browse" type="Button" parent="container"]

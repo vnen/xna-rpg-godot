@@ -20,16 +20,48 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-extends StaticBody2D
+tool
+extends "base_parser.gd"
 
-export (String) var name = "Inn"
-export (int) var charge_per_player = 0
-export (String) var welcome_message = "Welcome"
-export (String) var paid_message = "Thanks"
-export (String) var not_enough_gold = "Sorry"
-export (Texture) var shop_keeper_texture = null
+func parse(file):
 
-func _on_InteractionArea_body_enter( body ):
-	# This will call the routine to open the Inn screen.
-	print("contact ", body.get_name())
-	pass
+	var err = open(file)
+	if err != OK:
+		return err
+
+	# Read the header of the file to make sure it's a Chest
+	err = read_header("Chest")
+	if err != OK:
+		return err
+
+	var chest_data = { "AssetName": asset_name }
+
+	err = read_int("Gold", chest_data)
+	if err != OK:
+		return err
+
+	err = read_object_array("Entries", chest_data, funcref(self, "parse_entry"))
+	if err != OK:
+		return err
+
+	err = read_string("TextureName", chest_data)
+	if err != OK:
+		return err
+
+	# Finished :)
+	return chest_data
+
+# Parse each item's entty
+func parse_entry(parser):
+
+	var entry = {}
+
+	var err = read_string("ContentName", entry)
+	if err != OK:
+		return err
+
+	err = read_int("Count", entry)
+	if err != OK:
+		return err
+
+	return entry

@@ -29,33 +29,31 @@ func parse(file):
 	if err != OK:
 		return err
 
-	# Read the header of the file to make sure it's an Inn
-	err = read_header("Inn")
+	# Read the header of the file to make sure it's a FixedCombat
+	err = read_header("FixedCombat")
 	if err != OK:
 		return err
 
-	var inn_data = { "AssetName": asset_name }
+	var fixed_combat_data = { "AssetName": asset_name }
 
-	err = read_int("ChargePerPlayer", inn_data)
-	if err != OK:
-		return err
-
-	err = read_string("WelcomeMessage", inn_data)
-	if err != OK:
-		return err
-
-	err = read_string("PaidMessage", inn_data)
-	if err != OK:
-		return err
-
-	err = read_string("NotEnoughGoldMessage", inn_data)
-	if err != OK:
-		return err
-
-	err = read_string("ShopkeeperTextureName", inn_data)
+	err = read_object_array("Entries", fixed_combat_data, funcref(self, "parse_entry"))
 	if err != OK:
 		return err
 
 	# Finished :)
+	return fixed_combat_data
 
-	return inn_data
+# Parse each item's entty
+func parse_entry(parser):
+
+	var entry = {}
+
+	var err = read_string("ContentName", entry)
+	if err != OK:
+		return err
+
+	err = read_int("Count", entry)
+	if err != OK:
+		return err
+
+	return entry

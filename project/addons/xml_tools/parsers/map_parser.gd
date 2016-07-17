@@ -264,6 +264,9 @@ func make_map(map_data, parent, metadata):
 
 	# Load the other parsers
 	var inn_parser = preload("inn_parser.gd").new()
+	var chest_parser = preload("chest_parser.gd").new()
+	var store_parser = preload("store_parser.gd").new()
+	var fixed_combat_parser = preload("fixed_combat_parser.gd").new()
 
 	# Load the tileset resource
 	var tileset = load(metadata.get_option("tileset_dir").plus_file(map_data["TextureName"] + ".res"))
@@ -364,6 +367,10 @@ func make_map(map_data, parent, metadata):
 	activators.set_owner(parent)
 
 	# Create the activators for Inns
+	var inns = Node2D.new()
+	inns.set_name("Inns")
+	activators.add_child(inns)
+	inns.set_owner(parent)
 	for inn in map_data.InnEntries:
 		# Parse the Inn
 		var inn_data = inn_parser.parse(source_base.plus_file("Maps/Inns").plus_file(inn.ContentName + ".xml"))
@@ -390,8 +397,79 @@ func make_map(map_data, parent, metadata):
 		inn_activator.shop_keeper_texture = shop_keeper_texture
 
 		# Add the Inn activator to the scene
-		activators.add_child(inn_activator)
+		inns.add_child(inn_activator)
 		inn_activator.set_owner(parent)
+
+	# Create stores [dummy]
+	var stores = Node2D.new()
+	stores.set_name("StoresDummy")
+	activators.add_child(stores)
+	stores.set_owner(parent)
+	stores.set_hidden(true)
+	stores.set("editor/display_folded", true)
+	for store in map_data.StoreEntries:
+		# Parse the Store
+		var store_data = store_parser.parse(source_base.plus_file("Maps/Stores").plus_file(store.ContentName + ".xml"))
+		if typeof(store_data) == TYPE_INT:
+			# Errored
+			return store_data
+
+		var text = Label.new()
+		text.set_name(store.ContentName)
+
+		for item in store_data.StoreCategories:
+			text.set_text(text.get_text() + "Name" + store_data.AssetName + "\n"  + str(item.AvailableContentNames) + "\n\n")
+
+		stores.add_child(text)
+		text.set_owner(parent)
+
+	# Create fixed combats [dummy]
+	var fixed_combats = Node2D.new()
+	fixed_combats.set_name("FixedCombatsDummy")
+	activators.add_child(fixed_combats)
+	fixed_combats.set_owner(parent)
+	fixed_combats.set_hidden(true)
+	fixed_combats.set("editor/display_folded", true)
+	for fixed_combat in map_data.FixedCombatEntries:
+		# Parse the fixed_combat
+		var fixed_combat_data = \
+			fixed_combat_parser.parse(source_base.plus_file("Maps/FixedCombats").plus_file(fixed_combat.ContentName + ".xml"))
+		if typeof(fixed_combat_data) == TYPE_INT:
+			# Errored
+			return fixed_combat_data
+
+		var text = Label.new()
+		text.set_name(fixed_combat.ContentName)
+
+		text.set_text(text.get_text() + "Fixed Combat - " + fixed_combat_data.AssetName + "\n" \
+				+ str(fixed_combat_data.Entries) + "\n\n")
+
+		fixed_combats.add_child(text)
+		text.set_owner(parent)
+
+	# Create chests [dummy]
+	var chests = Node2D.new()
+	chests.set_name("ChestsDummy")
+	activators.add_child(chests)
+	chests.set_owner(parent)
+	chests.set_hidden(true)
+	chests.set("editor/display_folded", true)
+	for chest in map_data.ChestEntries:
+		# Parse the chest
+		var chest_data = \
+			chest_parser.parse(source_base.plus_file("Maps/Chests").plus_file(chest.ContentName + ".xml"))
+		if typeof(chest_data) == TYPE_INT:
+			# Errored
+			return chest_data
+
+		var text = Label.new()
+		text.set_name(chest.ContentName)
+
+		text.set_text(text.get_text() + "Chest - " + chest_data.AssetName + "\n" \
+				+ str(chest_data.Entries) + "\n\n")
+
+		chests.add_child(text)
+		text.set_owner(parent)
 
 	return OK
 

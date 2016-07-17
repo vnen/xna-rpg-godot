@@ -105,6 +105,26 @@ func read_int(element, data):
 	data[element] = int(content)
 	return OK
 
+# Read a float from the file and store it in data using element as key name.
+func read_float(element, data):
+	var content = get_element_content(element)
+	if typeof(content) == TYPE_INT:
+		# It's an error code
+		return content
+	var err = read()
+	if err != OK:
+		return err
+	err = expect_end(element)
+	if err != OK:
+		return err
+
+	if not content.is_valid_float():
+		return ERR_INVALID_DATA
+
+	# If it got here then there's no error
+	data[element] = float(content)
+	return OK
+
 # Read a range as a two-element array
 func read_range(element, data):
 	var err = next_element(element)
@@ -129,6 +149,10 @@ func read_range(element, data):
 	# If it got here then there's no error
 	data[element] = [int(range_data["Minimum"]),int(range_data["Maximum"])]
 	return OK
+
+# Read an StringArray from the file and store it in data using element as key name.
+func read_string_array(element, data):
+	return read_object_array(element, data, funcref(self, "parse_string_item"))
 
 # Read an IntArray from the file and store it in data using element as key name.
 func read_int_array(element, data):
@@ -157,3 +181,18 @@ func read_object_array(element, data, item_parser):
 	# If it got here then there's no error
 	data[element] = obj_arr
 	return OK
+
+# Item parser or string arrays
+func parse_string_item(parser):
+
+	# Skip the Item element
+	var err = parser.read()
+	if err != OK:
+		return err
+
+	# Expect a text node
+	if parser.get_node_type() != NODE_TEXT:
+		return ERR_INVALID_DATA
+
+	# Return the element content
+	return parser.get_node_data()

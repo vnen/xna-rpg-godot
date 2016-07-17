@@ -20,42 +20,19 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
-tool
-extends "base_parser.gd"
+extends StaticBody2D
 
-func parse(file):
+export (String) var name = "Inn"
+export (int) var charge_per_player = 0
+export (String) var welcome_message = "Welcome"
+export (String) var paid_message = "Thanks"
+export (String) var not_enough_gold = "Sorry"
+export (Texture) var shop_keeper_texture = null
 
-	var err = open(file)
-	if err != OK:
-		return err
+func _ready():
+	get_node("InteractionArea").connect("body_enter", self, "_on_InteractionArea_body_enter")
 
-	# Read the header of the file to make sure it's an Inn
-	err = read_header("Inn")
-	if err != OK:
-		return err
-
-	var inn_data = { "AssetName": asset_name }
-
-	err = read_int("ChargePerPlayer", inn_data)
-	if err != OK:
-		return err
-
-	err = read_string("WelcomeMessage", inn_data)
-	if err != OK:
-		return err
-
-	err = read_string("PaidMessage", inn_data)
-	if err != OK:
-		return err
-
-	err = read_string("NotEnoughGoldMessage", inn_data)
-	if err != OK:
-		return err
-
-	err = read_string("ShopkeeperTextureName", inn_data)
-	if err != OK:
-		return err
-
-	# Finished :)
-
-	return inn_data
+func _on_InteractionArea_body_enter( body ):
+	# This will call the routine to open the Inn screen.
+	print("contact ", body.get_name())
+	pass

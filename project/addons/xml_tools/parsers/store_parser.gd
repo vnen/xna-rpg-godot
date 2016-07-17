@@ -29,33 +29,47 @@ func parse(file):
 	if err != OK:
 		return err
 
-	# Read the header of the file to make sure it's an Inn
-	err = read_header("Inn")
+	# Read the header of the file to make sure it's a Store
+	err = read_header("Store")
 	if err != OK:
 		return err
 
-	var inn_data = { "AssetName": asset_name }
+	var store_data = { "AssetName": asset_name }
 
-	err = read_int("ChargePerPlayer", inn_data)
+	err = read_float("BuyMultiplier", store_data)
 	if err != OK:
 		return err
 
-	err = read_string("WelcomeMessage", inn_data)
+	err = read_float("SellMultiplier", store_data)
 	if err != OK:
 		return err
 
-	err = read_string("PaidMessage", inn_data)
+	err = read_object_array("StoreCategories", store_data, funcref(self, "parse_category"))
 	if err != OK:
 		return err
 
-	err = read_string("NotEnoughGoldMessage", inn_data)
+	err = read_string("WelcomeMessage", store_data)
 	if err != OK:
 		return err
 
-	err = read_string("ShopkeeperTextureName", inn_data)
+	err = read_string("ShopkeeperTextureName", store_data)
 	if err != OK:
 		return err
 
 	# Finished :)
+	return store_data
 
-	return inn_data
+# Parse each category
+func parse_category(parser):
+
+	var entry = {}
+
+	var err = read_string("Name", entry)
+	if err != OK:
+		return err
+
+	err = read_string_array("AvailableContentNames", entry)
+	if err != OK:
+		return err
+
+	return entry
