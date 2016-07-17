@@ -21,9 +21,9 @@
 # SOFTWARE.
 
 tool
-extends "res://addons/xml_tools/base_parser.gd"
+extends "base_parser.gd"
 
-func parse(file, parent, metadata):
+func parse(file):
 
 	var err = open(file)
 	if err != OK:
@@ -138,7 +138,7 @@ func parse(file, parent, metadata):
 
 	# Finished :)
 
-	return make_map(parent, map_data, metadata)
+	return map_data
 
 # Parse each portal item
 func parse_portal_item(parser):
@@ -258,7 +258,7 @@ func parse_randomcombat_entry_item(parser):
 	return entry
 
 # Build the map resource based on the parsed data.
-func make_map(parent, map_data, metadata):
+func make_map(map_data, parent, metadata):
 	# Load the tileset resource
 	var tileset = load(metadata.get_option("tileset_dir").plus_file(map_data["TextureName"] + ".res"))
 	if tileset == null:

@@ -20,8 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 
+################################################################################
+
+# This is the base parser. It contains the read* functions to help the
+# specific parsers that inherits from this.
+
 tool
-extends "res://addons/xml_tools/xml_parser.gd"
+extends "xml_parser.gd"
 
 var asset_name = null
 
@@ -105,22 +110,22 @@ func read_range(element, data):
 	var err = next_element(element)
 	if err != OK:
 		return err
-	
+
 	var range_data = {}
-	
+
 	err = read_int("Minimum", range_data)
 	if err != OK:
 		return err
-	
+
 	err = read_int("Maximum", range_data)
 	if err != OK:
 		return err
-	
+
 	# Read the maximum end tag
 	err = read()
 	if err != OK:
 		return err
-	
+
 	# If it got here then there's no error
 	data[element] = [int(range_data["Minimum"]),int(range_data["Maximum"])]
 	return OK
@@ -148,7 +153,7 @@ func read_object_array(element, data, item_parser):
 	if typeof(obj_arr) == TYPE_INT:
 		# Errored
 		return obj_arr
-	
+
 	# If it got here then there's no error
 	data[element] = obj_arr
 	return OK

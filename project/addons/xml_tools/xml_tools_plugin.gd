@@ -24,18 +24,12 @@ tool
 extends EditorPlugin
 
 var map_importer = null
-var inn_importer = null
 
 func _enter_tree():
 	map_importer = preload("importers/map_importer.gd").new()
 	map_importer.config(get_base_control())
 	add_import_plugin(map_importer)
 
-	inn_importer = preload("importers/inn_importer.gd").new()
-	inn_importer.config(get_base_control())
-	add_import_plugin(inn_importer)
-
 
 func _exit_tree():
 	remove_import_plugin(map_importer)
-	remove_import_plugin(inn_importer)

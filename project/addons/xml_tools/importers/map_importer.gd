@@ -55,9 +55,14 @@ func import(target, metadata):
 		pass
 	map = Node2D.new()
 
-	var err = map_parser.parse(source, map, metadata)
+	# Parse the source file
+	var map_data = map_parser.parse(source)
+	if typeof(map_data) == TYPE_INT:
+		# Errored
+		return map_data
 
-
+	# Use the parsed data to build a map
+	var err = map_parser.make_map(map_data, map, metadata)
 	if err != OK:
 		return err
 
@@ -74,6 +79,6 @@ func import(target, metadata):
 
 func config(base_control):
 	dialog = preload("map_dialog.tscn").instance()
-	map_parser = load("res://addons/xml_tools/map_parser.gd")
+	map_parser = load("res://addons/xml_tools/parsers/map_parser.gd")
 	map_parser = map_parser.new()
 	base_control.add_child(dialog)
