@@ -34,7 +34,7 @@ func parse(file):
 	if err != OK:
 		return err
 
-	var map_data = {}
+	var map_data = { "AssetName": asset_name }
 
 	# Read the map dimension
 	err = read_vector2("MapDimensions", map_data)
@@ -259,19 +259,25 @@ func parse_randomcombat_entry_item(parser):
 
 # Build the map resource based on the parsed data.
 func make_map(map_data, parent, metadata):
+	# Source base
+	var source_base = metadata.get_source_path(0).get_base_dir().get_base_dir()
+
+	# Load the other parsers
+	var inn_parser = preload("inn_parser.gd").new()
+
 	# Load the tileset resource
 	var tileset = load(metadata.get_option("tileset_dir").plus_file(map_data["TextureName"] + ".res"))
 	if tileset == null:
 		return ERR_CANT_AQUIRE_RESOURCE
 
+	# Load the block activator scene
+	var block_activator = preload("res://maps/block_activator.tscn")
+
+	# Load the scripts
+	var inn_script = preload("res://maps/inn.gd")
+
 	# Set the map name
 	parent.set_name(asset_name)
-
-	# Create the tilemaps root
-	var tilemaps = Node2D.new()
-	tilemaps.set_name("TileMaps")
-	parent.add_child(tilemaps)
-	tilemaps.set_owner(parent)
 
 	# Create base layer
 	var base_layer = TileMap.new()
@@ -279,7 +285,7 @@ func make_map(map_data, parent, metadata):
 	base_layer.set_cell_size(map_data["TileSize"])
 	base_layer.set_tileset(tileset)
 	fill_tilemap(base_layer, map_data["BaseLayer"], map_data["MapDimensions"])
-	tilemaps.add_child(base_layer)
+	parent.add_child(base_layer)
 	base_layer.set_owner(parent)
 
 	# Create fringe layer
@@ -288,8 +294,16 @@ func make_map(map_data, parent, metadata):
 	fringe_layer.set_cell_size(map_data["TileSize"])
 	fringe_layer.set_tileset(tileset)
 	fill_tilemap(fringe_layer, map_data["FringeLayer"], map_data["MapDimensions"])
-	tilemaps.add_child(fringe_layer)
+	parent.add_child(fringe_layer)
 	fringe_layer.set_owner(parent)
+
+
+	# Before the next layers, here comes the players, so they'll be drawn behind
+	var players_layer = YSort.new()
+	players_layer.set_name("PlayersLayer")
+	parent.add_child(players_layer)
+	players_layer.set_owner(parent)
+
 
 	# Create object layer
 	var object_layer = TileMap.new()
@@ -297,7 +311,7 @@ func make_map(map_data, parent, metadata):
 	object_layer.set_cell_size(map_data["TileSize"])
 	object_layer.set_tileset(tileset)
 	fill_tilemap(object_layer, map_data["ObjectLayer"], map_data["MapDimensions"])
-	tilemaps.add_child(object_layer)
+	parent.add_child(object_layer)
 	object_layer.set_owner(parent)
 
 	# Create collision layer tileset dummy texture
@@ -331,16 +345,53 @@ func make_map(map_data, parent, metadata):
 	collision_layer.set_cell_size(map_data["TileSize"])
 	collision_layer.set_tileset(collision_tileset)
 	fill_tilemap(collision_layer, map_data["CollisionLayer"], map_data["MapDimensions"])
-	tilemaps.add_child(collision_layer)
+	collision_layer.set_collision_layer(2)
+	parent.add_child(collision_layer)
 	collision_layer.set_owner(parent)
 	collision_layer.set_hidden(true)
 
 	# Create spawn point
 	var spawn = Position2D.new()
 	spawn.set_name("SpawnPosition")
-	spawn.set_pos((map_data["SpawnMapPosition"] * map_data["TileSize"]) + (map_data["TileSize"] / 2))
+	spawn.set_pos(normalize_position(map_data["SpawnMapPosition"], map_data))
 	parent.add_child(spawn)
 	spawn.set_owner(parent)
+
+	# Create the activators
+	var activators = Node2D.new()
+	activators.set_name("Activators")
+	parent.add_child(activators)
+	activators.set_owner(parent)
+
+	# Create the activators for Inns
+	for inn in map_data.InnEntries:
+		# Parse the Inn
+		var inn_data = inn_parser.parse(source_base.plus_file("Maps/Inns").plus_file(inn.ContentName + ".xml"))
+		if typeof(inn_data) == TYPE_INT:
+			# Errored
+			return inn_data
+
+		# Load shopkeeper texture
+		var shop_keeper_texture = \
+			ResourceLoader.load("res://entities/characters/textures".plus_file(inn_data.ShopkeeperTextureName + ".png"))
+		if shop_keeper_texture == null:
+			return ERR_CANT_AQUIRE_RESOURCE
+
+		# Add activator and set data
+		var inn_activator = block_activator.instance()
+		inn_activator.set_script(inn_script)
+		inn_activator.set_name(inn.ContentName)
+		inn_activator.set_pos(normalize_position(inn.MapPosition, map_data))
+		inn_activator.name = inn_data.AssetName
+		inn_activator.charge_per_player = inn_data.ChargePerPlayer
+		inn_activator.welcome_message = inn_data.WelcomeMessage
+		inn_activator.paid_message = inn_data.PaidMessage
+		inn_activator.not_enough_gold = inn_data.NotEnoughGoldMessage
+		inn_activator.shop_keeper_texture = shop_keeper_texture
+
+		# Add the Inn activator to the scene
+		activators.add_child(inn_activator)
+		inn_activator.set_owner(parent)
 
 	return OK
 
@@ -351,3 +402,7 @@ func fill_tilemap(tilemap, data, dimensions):
 		var x = int(fmod(i, dimensions.x))
 		var y = int(i / dimensions.x)
 		tilemap.set_cell(x, y, cell)
+
+# Normalize map position based on tile position.
+func normalize_position(pos, map_data):
+	return (pos * map_data["TileSize"]) + (map_data["TileSize"] / 2)

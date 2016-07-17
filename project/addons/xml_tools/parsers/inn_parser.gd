@@ -34,7 +34,7 @@ func parse(file):
 	if err != OK:
 		return err
 
-	var inn_data = {}
+	var inn_data = { "AssetName": asset_name }
 
 	err = read_int("ChargePerPlayer", inn_data)
 	if err != OK:
