@@ -29,7 +29,6 @@ func _ready():
 func _unhandled_input(event):
 	if event.is_pressed() and not event.is_echo() and event.is_action("ui_cancel"):
 		accept_event()
-		print("evet")
 		_on_ExitButton_pressed()
 
 func _on_button_focused(description):
